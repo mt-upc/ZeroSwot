@@ -1,4 +1,4 @@
 # ZeroSwot
-Zero-shot End-to-End Speech Translation with Subword Compression and Optimal Transport
+Pushing the Limits of Zero-shot End-to-End Speech Translation
 
 Code and Models will be available soon. 👀
