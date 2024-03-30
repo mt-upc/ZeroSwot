@@ -1,0 +1,9 @@
+bpe_tokenizer:
+  bpe: sentencepiece
+  sentencepiece_model: ${env:MODELS_ROOT}/nllb/flores200_sacrebleu_tokenizer_spm.model
+input_channels: 1
+input_feat_per_channel: 1
+sampling_alpha: 1.0
+prepend_tgt_lang_tag: True
+use_audio_input: true
+vocab_filename: ${env:MODELS_ROOT}/nllb/dictionary.full.txt

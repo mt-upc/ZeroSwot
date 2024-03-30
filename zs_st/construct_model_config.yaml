@@ -1,0 +1,48 @@
+# @package _global_
+
+hydra:
+  run:
+    dir: ${now:%Y-%m-%d}/${now:%H-%M-%S}
+
+common:
+  seed: 42
+  fp16: True
+  memory_efficient_fp16: True
+  user_dir: ${env:FAIRSEQ_ROOT}/examples/extended_siamese
+
+optimization:
+  lr: [1e-07]
+  update_freq: [1]
+
+dataset:
+  train_subset: train_st
+  valid_subset: dev_st
+  max_tokens: 2_400_000
+
+checkpoint:
+  save_dir: ckpts
+  reset_optimizer: True
+
+model:
+  _name: siamese_zs_s2t_model
+  encoder_path: avg_best_10_checkpoint.pt
+  decoder_path: ${env:MODELS_ROOT}/nllb/nllb-200-distilled-600M.pt
+
+task:
+  _name: speech_to_text
+  data: ${env:DATA_ROOT}/st/MUSTC_v1.0/en-de
+  config_yaml: ${env:ZS_ROOT}/zs_st/config_st.yaml
+  max_source_positions: 2_400_000
+  only_construct_model: True
+
+criterion:
+  _name: label_smoothed_cross_entropy
+  ignore_prefix_size: 1
+  label_smoothing: 0.1
+
+optimizer:
+  _name: adam
+
+lr_scheduler:
+  _name: inverse_sqrt
+  warmup_updates: 1_000

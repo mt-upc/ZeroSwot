@@ -1,0 +1,113 @@
+# @package _global_
+
+hydra:
+  run:
+    dir: ${env:SAVE_DIR}/speech_encoders/${env:WANDB_NAME}/hydra_outputs/${now:%Y-%m-%d}/${now:%H-%M-%S}
+
+common:
+  log_interval: 50
+  log_format: json
+  seed: 42
+  fp16: True
+  memory_efficient_fp16: True
+  empty_cache_freq: 500
+  wandb_project: ${env:WANDB_PROJECT}
+  user_dir: ${env:FAIRSEQ_ROOT}/examples/extended_siamese
+
+dataset:
+  train_subset: train_siamese
+  valid_subset: dev_siamese
+  num_workers: 2
+  max_tokens: 1_600_000
+  max_tokens_valid: 3_000_000
+  validate_interval: 500
+  skip_invalid_size_inputs_valid_test: True
+  required_batch_size_multiple: 1
+
+optimization:
+  lr: [3e-04]
+  update_freq: [20]
+  skip_remainder_batch: True
+  max_update: 200_000
+
+checkpoint:
+  save_dir: ${env:SAVE_DIR}/speech_encoders/${env:WANDB_NAME}/ckpts/
+  keep_best_checkpoints: 10
+  no_epoch_checkpoints: True
+  no_absolute_best_checkpoints: True
+  no_interval_updates_checkpoints: True
+  no_last_checkpoints: True
+  save_interval: 999_999
+  save_interval_updates: 500
+  best_checkpoint_metric: wass_loss
+  early_stop_metric: wass_loss
+  patience: 50
+
+model:
+  _name: siamese_encoders_with_ctc
+  speech_encoder:
+    path: ${env:MODELS_ROOT}/wav2vec2/wav2vec_vox_960h_pl.pt
+    dropout: 0.0
+    attention_dropout: 0.0
+    activation_dropout: 0.1
+    layerdrop: 0.0
+    final_dropout: 0.1
+    dropout_input: 0.0
+    apply_mask: True
+    mask_length: 10
+    mask_prob: 0.3
+    mask_channel_length: 64
+    mask_channel_prob: 0.2
+  text_encoder:
+    path: ${env:MODELS_ROOT}/nllb/nllb-200-distilled-600M.pt
+    num_layers: 12
+  speech_embedder:
+    use_special_embedding: True
+    use_positional_embedding: True
+    scale_embedding: True
+    freeze: True
+    scale_init: 32.0
+  context_encoder:
+    dropout: 0.0
+    attention_dropout: 0.0
+    activation_dropout: 0.0
+    freeze: True
+  ctc_decoder:
+    dictionary_path: ${env:MODELS_ROOT}/wav2vec2/dict.ltr.txt
+    dropout: 0.1
+  compressor:
+    char_compression:
+      pooling_fn: mean
+    token_compression:
+      pooling_fn: cls
+      dropout: 0.1
+      transformer_layers: 3
+      use_positional_embedding: True
+
+task:
+  _name: siamese_speech_text
+  data: ${env:DATA_ROOT}/siamese/CommonVoice
+  config_yaml: ${env:ZS_ROOT}/training/data_config.yaml
+  max_source_positions: 400_000
+  max_target_positions: 1024
+  max_positions_text: 512
+  tgt_text_name: tgt_text_tok_punct
+
+criterion:
+  _name: ctc_wass
+  ctc_weight: 0.1
+  zero_infinity: True
+  ot_weight: 0.1285
+  ot_pos_weight: 10.0
+  ot_student_aux_layers: 6,7,8,9,10,11
+  ot_teacher_aux_layers: 6,7,8,9,10,11
+  ot_aux_weights: 0.1285,0.1285,0.1285,0.1285,0.1285,0.1285
+
+optimizer:
+  _name: adam
+  adam_betas: (0.9, 0.98)
+  adam_eps: 1e-08
+
+lr_scheduler:
+  _name: inverse_sqrt
+  warmup_updates: 4_000
