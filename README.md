@@ -109,7 +109,7 @@ To train a new Speech Encoder using our method, refer to [zs_st/README.md](zs_st
 
 For finetuning the NLLB models on MUSTC or CoVoST2, refer to [mt/README.md](mt/README.md) for more details.
 
-For our experiments regarding Cascade ST, refer to [cascade/README.md](cascade/README.md) for more details.
+For our experiments regarding Cascade ST, refer to [cascade_st/README.md](cascade_st/README.md) for more details.
 
 We also provide some scripts for supervised ST finetuning of our ZeroSwot models, refer to [supervised_st/README.md](supervised_st/README.md) for more details.
 
