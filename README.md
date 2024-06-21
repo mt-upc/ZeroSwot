@@ -28,7 +28,7 @@ source ${ZS_ROOT}/constants.sh
 Install the fairseq fork with the zeroswot branch:
 
 ```bash
-git clone -b zeroswot https://github.com/mt-upc/fairseq-internal.git ${FAIRSEQ_ROOT}
+git clone -b zeroswot https://github.com/mt-upc/fairseq.git ${FAIRSEQ_ROOT}
 pip install --editable ${FAIRSEQ_ROOT}
 export PYTHONPATH=${FAIRSEQ_ROOT}:${FAIRSEQ_ROOT}/examples:${ZS_ROOT}:${PYTHONPATH}
 ```
