@@ -2,7 +2,7 @@
 
 This repository contains the code for the paper "Pushing the Limits of Zero-shot End-to-End Speech Translation".
 
-The preprint is available on [arXiv](https://arxiv.org/abs/2402.10422).
+The paper is available on [ACL 2024 Proceedings](https://aclanthology.org/2024.findings-acl.847/).
 
 ## Installation
 
@@ -118,13 +118,22 @@ We also provide some scripts for supervised ST finetuning of our ZeroSwot models
 If you use this code or the models in your research, please cite this work as:
 
 ```
-@misc{tsiamas2024pushing,
-      title={{Pushing the Limits of Zero-shot End-to-End Speech Translation}}, 
-      author={Ioannis Tsiamas and Gerard I. Gállego and José A. R. Fonollosa and Marta R. Costa-jussà},
-      year={2024},
-      eprint={2402.10422},
-      archivePrefix={arXiv},
-      primaryClass={cs.CL}
+@inproceedings{tsiamas-etal-2024-pushing,
+    title = {{Pushing the Limits of Zero-shot End-to-End Speech Translation}},
+    author = "Tsiamas, Ioannis  and
+      G{\'a}llego, Gerard  and
+      Fonollosa, Jos{\'e}  and
+      Costa-juss{\`a}, Marta",
+    editor = "Ku, Lun-Wei  and
+      Martins, Andre  and
+      Srikumar, Vivek",
+    booktitle = "Findings of the Association for Computational Linguistics ACL 2024",
+    month = aug,
+    year = "2024",
+    address = "Bangkok, Thailand and virtual meeting",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2024.findings-acl.847",
+    pages = "14245--14267",
 }
 ```
 
