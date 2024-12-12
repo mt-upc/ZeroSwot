@@ -4,6 +4,31 @@ This repository contains the code for the paper "Pushing the Limits of Zero-shot
 
 The paper is available on [ACL 2024 Proceedings](https://aclanthology.org/2024.findings-acl.847/).
 
+## HF Models 🤗🚀
+
+Our models are easily accesible through huggingface:
+
+| ASR Data    | MT Model             | Model Name                                              | MUSTC ZS-ST BLEU | CoVoST2 ZS-ST BLEU |
+|--------------|--------------------------|---------------------------------------------------| ---------------| ----------------|
+| MUSTC       | NLLB-600M (original)     | [ZeroSwot-Medium_asr-mustc_en-to-200](https://huggingface.co/johntsi/ZeroSwot-Medium_asr-mustc_en-to-200)        | 29.6           | /               |
+| MUSTC       | NLLB-600M (finetuned in MUSTC MT)         | [ZeroSwot-Medium_asr-mustc_mt-mustc_en-to-8](https://huggingface.co/johntsi/ZeroSwot-Medium_asr-mustc_mt-mustc_en-to-8) | 31.9           | /               |
+| MUSTC       | NLLB-1.3B (original)     | [ZeroSwot-Large_asr-mustc_en-to-200](https://huggingface.co/johntsi/ZeroSwot-Large_asr-mustc_en-to-200)        | 31.4           | /               |
+| MUSTC       | NLLB-1.3B (finetuned in MUSTC MT)         | [ZeroSwot-Large_asr-mustc_mt-mustc_en-to-8](https://huggingface.co/johntsi/ZeroSwot-Large_asr-mustc_mt-mustc_en-to-8) | 32.9           | /               |
+| CommonVoice  | NLLB-600M (original)     | [ZeroSwot-Medium_asr-cv_en-to-200](https://huggingface.co/johntsi/ZeroSwot-Medium_asr-cv_en-to-200)        | 26.0           | 23.1            |
+| CommonVoice  | NLLB-600M (finetuned in CoVoST2 MT)        | [ZeroSwot-Medium_asr-cv_mt-covost2_en-to-15](https://huggingface.co/johntsi/ZeroSwot-Medium_asr-cv_mt-covost2_en-to-15)| /              | 30.2            |
+| CommonVoice  | NLLB-1.3B (original)     | [ZeroSwot-Large_asr-cv_en-to-200](https://huggingface.co/johntsi/ZeroSwot-Large_asr-cv_en-to-200)        | 27.4           | 25.5            |
+| CommonVoice  | NLLB-1.3B (finetuned in CoVoST2 MT)        | [ZeroSwot-Large_asr-cv_mt-covost2_en-to-15](https://huggingface.co/johntsi/ZeroSwot-Large_asr-cv_mt-covost2_en-to-15)| /              | 31.2            |
+
+And the specialized MT models which are based on NLLB:
+
+| Base Model     | MT Data        | Model Name                                             | MUSTC MT BLEU | CoVoST2 MT BLEU |
+|-----------|----------------|--------------------------------------------------| --------------| ----------------|
+| NLLB-600M | MUSTC En-X    | [nllb-200-distilled-600M_mustc_en-to-8](https://huggingface.co/johntsi/nllb-200-distilled-600M_mustc_en-to-8)      | 35.9          | /               |
+| NLLB-600M | CoVoST2 En-X   | [nllb-200-distilled-1.3B_mustc_en-to-8](https://huggingface.co/johntsi/nllb-200-distilled-1.3B_mustc_en-to-8)     | /             | 35.0            |
+| NLLB-1.3B | MUSTC En-X    | [nllb-200-distilled-600M_covost2_en-to-15](https://huggingface.co/johntsi/nllb-200-distilled-600M_covost2_en-to-15)      | 37.2          | /               |
+| NLLB-1.3B | CoVoST2 En-X   | [nllb-200-distilled-1.3B_covost2_en-to-15](https://huggingface.co/johntsi/nllb-200-distilled-1.3B_covost2_en-to-15)     | /             | 36.1            |
+
+
 ## Installation
 
 Set the following environment variables:
